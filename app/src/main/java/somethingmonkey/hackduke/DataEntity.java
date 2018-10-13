@@ -14,7 +14,7 @@ public class DataEntity {
     private int alcohol2;
     private int dm;
     private int c677t1;
-    private int c677t2;;
+    private int c677t2;
 
     private double fa;
     private double hcy;
