@@ -27,9 +27,9 @@ public class DataEntity {
     private String name;
     private String date;
 
-    public DataEntity(int sex, int smoke1, int smoke2, int alcohol1, int alcohol2,
-                      int dm, int c677t1, int c677t2, double fa, double hcy, double bmi,
-                      double sbp, double dbp, double tcho, double age, String name, String date) {
+    public DataEntity(double age, int sex, int smoke1, int smoke2, int alcohol1,
+                      int alcohol2, double bmi, double sbp, double dbp, double tcho, int dm,
+                      int c677t1, int c677t2, double fa, double hcy, String name, String date) {
         this.sex = sex;
         this.smoke1 = smoke1;
         this.smoke2 = smoke2;
@@ -43,6 +43,7 @@ public class DataEntity {
         this.sbp = sbp;
         this.dbp = dbp;
         this.tcho = tcho;
+        this.dm = dm;
         this.age = age;
         this.name = name;
         this.date = date;
@@ -50,8 +51,9 @@ public class DataEntity {
 
     @Override
     public String toString() {
-        return "DataEntry{" + entry_id + sex + smoke1 + smoke2 + alcohol1 + alcohol2 + c677t1 +
-                c677t2 + fa + hcy + bmi + sbp + dbp + tcho + age + name + date + '}';
+        return "DataEntry{" + "$" + age + "$" + sex + "$" + smoke1 + "$" + smoke2 + "$" + alcohol1 +
+                "$" + alcohol2 + "$" + bmi + "$" + sbp + "$" + dbp + "$" + tcho + "$" + dm +"$" +
+                c677t1 + "$" + c677t2 + "$" + fa + "$" + hcy + "$" + name + "$" + date + "$" + '}';
     }
 
 
