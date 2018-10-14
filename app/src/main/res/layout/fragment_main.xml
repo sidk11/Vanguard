@@ -23,7 +23,7 @@
                 android:layout_height="519dp">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/progressTextView"
                     android:layout_width="130dp"
                     android:layout_height="96dp"
                     android:layout_marginBottom="8dp"

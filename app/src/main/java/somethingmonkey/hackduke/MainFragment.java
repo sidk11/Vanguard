@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 /**
@@ -43,5 +44,8 @@ public class MainFragment extends Fragment {
         ProgressBarAnimation anim = new ProgressBarAnimation(progressBar, progressBar.getProgress(), score);
         anim.setDuration(1000);
         progressBar.startAnimation(anim);
+
+        TextView progressTextView = getView().findViewById(R.id.progressTextView);
+        progressTextView.setText(score+"%");
     }
 }
