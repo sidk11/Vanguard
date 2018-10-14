@@ -11,7 +11,10 @@ import java.util.List;
 @Dao
 public interface DataDao {
 
-    @Query("SELECT * FROM DataEntity LIMIT 1")
+    //@Query("SELECT * FROM DataEntity LIMIT 10")
+    //List<DataEntity> getAll();
+
+    @Query("SELECT * FROM DataEntity")
     List<DataEntity> getAll();
 
     @Insert
