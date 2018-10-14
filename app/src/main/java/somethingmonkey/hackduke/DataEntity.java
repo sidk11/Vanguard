@@ -16,6 +16,8 @@ public class DataEntity {
     private int c677t1;
     private int c677t2;
 
+    private int health_score;
+
     private double fa;
     private double hcy;
     private double bmi;
@@ -29,7 +31,7 @@ public class DataEntity {
 
     public DataEntity(double age, int sex, int smoke1, int smoke2, int alcohol1,
                       int alcohol2, double bmi, double sbp, double dbp, double tcho, int dm,
-                      int c677t1, int c677t2, double fa, double hcy, String name, String date) {
+                      int c677t1, int c677t2, double fa, double hcy, String name, String date, int health_score) {
         this.sex = sex;
         this.smoke1 = smoke1;
         this.smoke2 = smoke2;
@@ -53,7 +55,7 @@ public class DataEntity {
     public String toString() {
         return "DataEntry{" + "$" + age + "$" + sex + "$" + smoke1 + "$" + smoke2 + "$" + alcohol1 +
                 "$" + alcohol2 + "$" + bmi + "$" + sbp + "$" + dbp + "$" + tcho + "$" + dm +"$" +
-                c677t1 + "$" + c677t2 + "$" + fa + "$" + hcy + "$" + name + "$" + date + "$" + '}';
+                c677t1 + "$" + c677t2 + "$" + fa + "$" + hcy + "$" + name + "$" + date + "$" + health_score + '}';
     }
 
 
@@ -199,6 +201,14 @@ public class DataEntity {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getHealth_score() {
+        return health_score;
+    }
+
+    public void setHealth_score(int health_score) {
+        this.health_score = health_score;
     }
 
 }
