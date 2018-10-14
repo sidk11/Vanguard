@@ -10,6 +10,7 @@ public class CSPPTModel implements RiskModel {
 
     }
 
+    /*@param params is age, sex, smk1, smk2, alh1, alh2, bmi, sbp, dbp, tcho, dm, c677t1, c677t2, fa, hcy*/
     @Override
     public double calculateRisk(double[] params) {
         if(params.length<15){
@@ -21,7 +22,7 @@ public class CSPPTModel implements RiskModel {
                         0.055110387*params[3]+
                         -0.139966599*params[4]+
                         -0.10524916*params[5]+
-                        -0.004788797*params[6]+
+                        +0.004788797*params[6]+
                         0.01653021*params[7]+
                         0.014178248*params[8]+
                         0.151970888*params[9]+

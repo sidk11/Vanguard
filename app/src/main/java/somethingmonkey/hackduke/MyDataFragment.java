@@ -161,7 +161,7 @@ public class MyDataFragment extends Fragment {
                     switch (checkedRadioButton.getText().toString()){
                         case "I never smoke":
                             smoke1 = 0;
-                            smoke2 = 1;
+                            smoke2 = 0;
                         case "I used to smoke":
                             smoke1 = 1;
                             smoke2 = 1;
@@ -190,14 +190,14 @@ public class MyDataFragment extends Fragment {
                 {
                     switch (checkedRadioButton.getText().toString()){
                         case "I'm not a drinker":
-                            alcohol1 = 0;
+                            alcohol1 = 1;
                             alcohol2 = 1;
                         case "I used to be a drinker":
-                            alcohol1 = 1;
-                            alcohol2 = 1;
-                        case "I am a drinker":
-                            alcohol1 = 1;
+                            alcohol1 = 0;
                             alcohol2 = 0;
+                        case "I am a drinker":
+                            alcohol1 = 0;
+                            alcohol2 = 1;
                     }
                     // Changes the textview's text to "Checked: example radiobutton text"
                     Log.d("Created", checkedRadioButton.getText().toString());
@@ -220,14 +220,14 @@ public class MyDataFragment extends Fragment {
                 {
                     switch (checkedRadioButton.getText().toString()){
                         case "CC":
-                            c677t1 = "0";
-                            c677t2 = "1";
+                            c677t1 = "1";
+                            c677t2 = "0";
                         case "CT":
                             c677t1 = "1";
                             c677t2 = "1";
                         case "TT":
-                            c677t1 = "1";
-                            c677t2 = "0";
+                            c677t1 = "0";
+                            c677t2 = "1";
                     }
                     // Changes the textview's text to "Checked: example radiobutton text"
                     Log.d("Created", checkedRadioButton.getText().toString());
