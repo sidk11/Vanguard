@@ -3,6 +3,7 @@ Vanguard
 ===
 ### *The personal intelligent health adviser*
 Team Members: Xi Pu, Siddhant Khanna, and Benjamin Xu
+**DISCLAIMER**: Critical files regarding neural network map data have been removed for data privacy reasons. Please generate your own files in the raw folder of the resources directory and change the code to reflect these changes if you wish to run the app.
 ## Why did we make Vanguard?
 There is a stunning lack of health awareness that is prevalent even in developed countries like the United States. Many individuals who seem outwardly healthy are actually already at high risk for future cardio-cerebrovascular events, one of the most significant causes of mortality worldwide. This "faux-health" is a reflection of both the lack of widespread health education regarding important modifiable bio-markers and their impact on human health and longevity, as well as the lack of accessibility of more specialized health assessments to the general public. While sources for clinical reference ranges of these bio-markers exist online, individuals without access to their own biometric data are unable to use this information. We therefore wanted to integrate an intelligent risk assessment model with a way to accurately and precisely "fill in the blanks" in user data so all users could enjoy the benefits of increased health conscientiousness.
 
