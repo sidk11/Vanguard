@@ -2,9 +2,9 @@ package somethingmonkey.hackduke.Model;
 
 public class CSPPTModel implements RiskModel {
 
-    public static final double SD = 0.6313588;
-    public static final double PI = 3.14159265;
-    public static final double MEAN = 6.658;
+    private static final double SD = 0.6313588;
+    private static final double PI = 3.14159265;
+    private static final double MEAN = 6.658;
 
     public CSPPTModel(){
 
