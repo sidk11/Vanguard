@@ -7,12 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".MyHealthFragment">
 
-    <com.db.chart.view.LineChartView xmlns:chart="http://schemas.android.com/apk/res-auto"
+    <com.db.chart.view.LineChartView xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:chart="http://schemas.android.com/apk/res-auto"
         android:id="@+id/linechart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="244dp"
         chart:layout_constraintEnd_toEndOf="parent"
+        chart:layout_constraintHorizontal_bias="1.0"
         chart:layout_constraintStart_toStartOf="parent"
         chart:layout_constraintTop_toTopOf="parent" />
 

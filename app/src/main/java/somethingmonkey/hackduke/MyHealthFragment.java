@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,17 +43,24 @@ public class MyHealthFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<DataEntity> data = myDatabase.daoAccess().getAll();
+                Log.d("database created","");
+                Log.d("datasize",String.valueOf(myDatabase.daoAccess().getSize()));
+                /*List<DataEntity> data = myDatabase.daoAccess().getAll();
                 int dbsize = myDatabase.daoAccess().getSize();
                 int numtoget = dbsize;
                 if(dbsize>10){
                     numtoget = 10;
                 }
                 String[] labels = new String[numtoget];
+                float[] values = new float[numtoget];*/
+                int numtoget = 10;
+                String[] labels = new String[numtoget];
                 float[] values = new float[numtoget];
                 for(int i=numtoget-1;i>=0;i--){
-                    labels[numtoget-i-1]=data.get(i).getDate();
-                    values[numtoget-i-1]=data.get(i).getHealth_score();
+                    labels[numtoget-i-1]="lol";
+                    values[numtoget-i-1]=i;
+                    /*labels[numtoget-i-1]=data.get(i).getDate();
+                    values[numtoget-i-1]=data.get(i).getHealth_score();*/
                 }
                 lineset = new LineSet(labels,values);
                 linechart.addData(lineset);
