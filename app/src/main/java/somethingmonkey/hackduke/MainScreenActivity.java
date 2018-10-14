@@ -78,12 +78,12 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
                 break;
             }
 
-            case R.id.nav_task:{
-                Log.d("Pressed", "Pressed task");
-                TaskFragment fragment = new TaskFragment();
-                mFragmentManager.beginTransaction().replace(R.id.content_view, fragment).commit();
-                break;
-            }
+//            case R.id.nav_task:{
+//                Log.d("Pressed", "Pressed task");
+//                TaskFragment fragment = new TaskFragment();
+//                mFragmentManager.beginTransaction().replace(R.id.content_view, fragment).commit();
+//                break;
+//            }
 
             case R.id.nav_manage:{
                 Log.d("Pressed", "Pressed my data");

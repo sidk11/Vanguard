@@ -1,5 +1,6 @@
 package somethingmonkey.hackduke;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,8 +20,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import somethingmonkey.hackduke.Impute.Imputer;
 import somethingmonkey.hackduke.Impute.Map;
@@ -116,10 +121,6 @@ public class MyDataFragment extends Fragment {
 
                 vars[10] = dm;
 
-//                String dm = dmInput.getText().toString().length()==0?"NA":dmInput.getText().toString();
-//                vars[10] = dm;
-
-
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String age = prefs.getString("Age", null);
@@ -165,7 +166,26 @@ public class MyDataFragment extends Fragment {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putInt("Score", score);
                 editor.commit();
-                Log.d("Risk", String.valueOf(risk));
+//                Log.d("Risk", String.valueOf(risk));
+
+//                 store into database
+
+                String name = prefs.getString("Name", null);
+
+//                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                Calendar today = Calendar.getInstance();
+
+                DataDataBase db = Room.databaseBuilder(getContext(),
+                DataDataBase.class, "database-name").build();
+
+                DataEntity updated = new DataEntity(Double.parseDouble(age),Integer.parseInt(sex),smoke1,smoke2,alcohol1,
+                alcohol2,Double.parseDouble(bmi),Double.parseDouble(sbp),Double.parseDouble(dbp),
+                Double.parseDouble(tchp),Integer.parseInt(dm),Integer.parseInt(c677t1),
+                Integer.parseInt(c677t2),Double.parseDouble(fa),Double.parseDouble(hcy),name, DateFormat.getDateInstance(DateFormat.LONG).format(today), score);
+
+                db.daoAccess().insertAll(updated);
+
+
             }
         });
 
