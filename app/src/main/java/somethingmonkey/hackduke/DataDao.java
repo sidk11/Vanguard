@@ -11,7 +11,10 @@ import java.util.List;
 @Dao
 public interface DataDao {
 
-    @Query("SELECT * FROM DataEntity LIMIT 1")
+    //@Query("SELECT * FROM DataEntity LIMIT 10")
+    //List<DataEntity> getAll();
+
+    @Query("SELECT * FROM DataEntity")
     List<DataEntity> getAll();
 
     @Insert
@@ -28,5 +31,8 @@ public interface DataDao {
 
     @Query("DELETE FROM DataEntity")
     void deleteAll();
+
+    @Query("SELECT COUNT(*) FROM DataEntity")
+    int getSize();
 
 }

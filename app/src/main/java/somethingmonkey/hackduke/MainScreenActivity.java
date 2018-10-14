@@ -73,6 +73,8 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
 
             case R.id.nav_health:{
                 Log.d("Pressed", "Pressed health");
+                MyHealthFragment fragment = new MyHealthFragment();
+                mFragmentManager.beginTransaction().replace(R.id.content_view, fragment).commit();
                 break;
             }
 
