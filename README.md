@@ -24,13 +24,10 @@ While classical heuristics for imputation methods exist, they rarely provide acc
 ### The Polylingual Conundrum
 #### Matlab to Java
 While earlier it was mentioned that an open-source implementation of SOM-based imputation was available for Matlab, the caveat that was not mentioned was that due to our Android-centric app development, we were working in a Java-powered environment, *id est* there was a literal language barrier preventing us from using the available implementation. This incompatibility necessitated the re-implementation of the Matlab algorithm in a Java environment, which was by no means a trivial feat, given that Matlab is a high-level language designed for ease-of-use such as Python or R, not to mention its matrix-based semantics, which stand in stark contract to Java's object-oriented design.
-
-## Anything we're proud of?
-TBD
+#### Dataframes _**R**_ Cool
+In addition to Matlab, Java, Git shell commands, there was yet another set of syntactic rules we had to learn for our project: the statistical analysis language R. Since a core element of our project revolved around machine-learning using a large dataset as a training matrix, a programmatic way of handling any manipulations to the raw dataset was required. Of course, we opted for the financially optimal open-source solution. In addition to complex matrix-wide operations, R also allowed us to construct our risk model through its support for statistical packages enabling us to compute a Cox Proportional Hazards Model from our data. Despite the addition of yet another language that we had to learn, R allowed us to develop the core back-end behavior necessary for our application to exist.
 ## What did we learn?
 As a team, we knew next to nothing about anything that was involved in creating this app. In short, all the skills that were required to implement our product were learned on the spot as we were working. App development in android was completely alien; trying to decipher Matlab, a language none of us had ever learned, was ludicrously and unnecessarily involved; creating appealing and functional user interfaces and user experiences was a deceptively complex. In short, in order to put together Vanguard from scratch, all of us were forced to not only step out of our comfort zone, but blast out of it at terminal velocities.
-## What's next for Vanguard?
-TBD
 ## Limitations
 ### User Characteristics
 Due to the nature of the data we had to work with, our algorithms work best with individuals who are more similar to the individuals present in our data; in practical terms, this means that adults and elderly would be more likely to receive more accurate results compared to younger users, for example.
