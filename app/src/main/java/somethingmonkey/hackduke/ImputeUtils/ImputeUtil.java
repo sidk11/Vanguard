@@ -6,20 +6,18 @@ package somethingmonkey.hackduke.ImputeUtils;
 public class ImputeUtil {
     //change row of a matrix to another row
     public static double[][] rowchange(int row, double[] newrow, double[][] data){
-        double[][] result = data;
         data[row] = newrow;
-        return result;
+        return data;
     }
 
     //change rows of a matrix to just 1's
     public static double[][] onerow(int[] rows,double[][] data){
-        double[][] result = data;
-        for(int i=0;i<rows.length;i++){
-            for(int j=0;j<data[0].length;j++){
-                result[rows[i]][j] = 1;
+        for (int row : rows) {
+            for (int j = 0; j < data[0].length; j++) {
+                data[row][j] = 1;
             }
         }
-        return result;
+        return data;
     }
 
     //find minimum in each column of a matrix and which entry it belongs to
@@ -54,9 +52,7 @@ public class ImputeUtil {
     public static double[][] rowSelect(int[] rows, double[][] matrix){
         double[][] result = new double[rows.length][matrix[0].length];
         for(int i=0;i<rows.length;i++){
-            for(int j=0;j<matrix[0].length;j++){
-                result[i][j] = matrix[rows[i]][j];
-            }
+            System.arraycopy(matrix[rows[i]], 0, result[i], 0, matrix[0].length);
         }
         return result;
     }
