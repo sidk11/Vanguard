@@ -30,6 +30,6 @@ public interface DataDao {
     void deleteAll();
 
     @Query("SELECT COUNT(*) FROM DataEntity")
-    void getSize();
+    int getSize();
 
 }
