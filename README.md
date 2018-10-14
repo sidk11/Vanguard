@@ -1,4 +1,4 @@
-![Vanguard Logo](https://i.imgur.com/HGKNxvZ.png Vanguard Logo)
+![Vanguard Logo](https://i.imgur.com/HGKNxvZ.png "Vanguard Logo")
 Vanguard
 ===
 ### *The personal intelligent health adviser*
