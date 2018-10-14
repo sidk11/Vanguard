@@ -13,11 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class MainScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout mDrawerLayout;
     FragmentManager mFragmentManager;
+    Button calibrateButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,16 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
         mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_view, fragment).commit();
 
+
+        calibrateButton = findViewById(R.id.calibrate);
     }
+
+
+    public void swicthToDate(View v){
+        MyDataFragment fragment = new MyDataFragment();
+        mFragmentManager.beginTransaction().replace(R.id.content_view, fragment).commit();
+    }
+
 
     @Override
     protected void onStart() {
