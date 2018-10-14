@@ -29,4 +29,7 @@ public interface DataDao {
     @Query("DELETE FROM DataEntity")
     void deleteAll();
 
+    @Query("SELECT COUNT(*) FROM DataEntity")
+    void getSize();
+
 }
