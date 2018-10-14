@@ -1,6 +1,9 @@
 package somethingmonkey.hackduke;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -9,11 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import somethingmonkey.hackduke.Impute.Imputer;
 import somethingmonkey.hackduke.Impute.Map;
+import somethingmonkey.hackduke.Model.CSPPTModel;
 
 
 /**
@@ -27,17 +35,10 @@ public class MyDataFragment extends Fragment {
     private int alcohol1;
     private int alcohol2;
     private int dm;
-    private int c677t1;
-    private int c677t2;
+    private String c677t1 = "NA";
+    private String c677t2 = "NA";
 
-    private double fa;
-    private double hcy;
-    private double bmi;
-    private double sbp;
-    private double dbp;
-    private double tcho;
-    private double age;
-
+    Context mContext;
     TextInputEditText bmiInput;
     TextInputEditText sbpInput;
     TextInputEditText dbpInput;
@@ -45,6 +46,7 @@ public class MyDataFragment extends Fragment {
     TextInputEditText dmInput;
     TextInputEditText faInput;
     TextInputEditText ncyInput;
+    Button saveButton;
 
     public MyDataFragment() {
         // Required empty public constructor
@@ -62,10 +64,86 @@ public class MyDataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         bmiInput = getView().findViewById(R.id.BMI);
+        sbpInput = getView().findViewById(R.id.SBP);
+        dbpInput = getView().findViewById(R.id.DBP);
+        tchoInput = getView().findViewById(R.id.TCHO);
+        dmInput = getView().findViewById(R.id.DM);
+        faInput = getView().findViewById(R.id.FA);
+        ncyInput = getView().findViewById(R.id.NCY);
+        saveButton = getView().findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map myMap = new Map();
+                Imputer imputer = new Imputer(myMap);
+
+                String[] vars = new String[15];
+                double[] imputedVars = new double[15];
+
+                String fa = faInput.getText().toString().length()==0?"NA":faInput.getText().toString();
+                vars[13] = fa;
+                String hcy = ncyInput.getText().toString().length()==0?"NA":ncyInput.getText().toString();
+                vars[14] = hcy;
+                String bmi = bmiInput.getText().toString().length()==0?"NA":bmiInput.getText().toString();
+                vars[6] = bmi;
+                String sbp = sbpInput.getText().toString().length()==0?"NA":sbpInput.getText().toString();
+                vars[7] = sbp;
+                String dbp = dbpInput.getText().toString().length()==0?"NA":dbpInput.getText().toString();
+                vars[8] = dbp;
+                String tchp = tchoInput.getText().toString().length()==0?"NA":tchoInput.getText().toString();
+                vars[9] = tchp;
+                String dm = dmInput.getText().toString().length()==0?"NA":dmInput.getText().toString();
+                vars[10] = dm;
 
 
 
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String age = prefs.getString("Age", null);
+                vars[0] = age;
+                String sex = prefs.getString("Sex", null);
+                vars[1] = sex;
 
+                vars[2] = String.valueOf(smoke1);
+                vars[3] = String.valueOf(smoke2);
+                vars[4] = String.valueOf(alcohol1);
+                vars[5] = String.valueOf(alcohol2);
+                vars[11] = c677t1;
+                vars[12] = c677t2;
+
+                double[] result = imputer.impute(new String[][]{{
+                        age, sex, String.valueOf(smoke1), String.valueOf(smoke2),
+                        String.valueOf(alcohol1), String.valueOf(alcohol2),
+                        bmi, sbp, dbp, tchp, dm,
+                        c677t1, c677t2, fa, hcy
+                }});
+
+                List<Integer> imputedIndex = new ArrayList<>();
+
+                for(int i = 0; i < vars.length; i++){
+                    if(vars[i].equals("NA")){
+                        imputedIndex.add(i);
+                    }
+                }
+
+                int index = (int) result[0];
+
+                for(int i = 0; i < imputedVars.length; i++){
+                    if(!vars[i].equals("NA")) imputedVars[i] = Double.parseDouble(vars[i]);
+                }
+
+                for(int i: imputedIndex){
+                    imputedVars[i] = myMap.getEntry(index, i);
+                }
+
+                CSPPTModel model = new CSPPTModel();
+                double risk = model.calculateRisk(imputedVars);
+                int score = (int)(risk*100);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("Score", score);
+                editor.commit();
+                Log.d("Risk", String.valueOf(risk));
+            }
+        });
 
         RadioGroup smokeGroup = getView().findViewById(R.id.smoke);
 
@@ -142,14 +220,14 @@ public class MyDataFragment extends Fragment {
                 {
                     switch (checkedRadioButton.getText().toString()){
                         case "CC":
-                            c677t1 = 0;
-                            c677t2 = 1;
+                            c677t1 = "0";
+                            c677t2 = "1";
                         case "CT":
-                            c677t1 = 1;
-                            c677t2 = 1;
+                            c677t1 = "1";
+                            c677t2 = "1";
                         case "TT":
-                            c677t1 = 1;
-                            c677t2 = 0;
+                            c677t1 = "1";
+                            c677t2 = "0";
                     }
                     // Changes the textview's text to "Checked: example radiobutton text"
                     Log.d("Created", checkedRadioButton.getText().toString());
@@ -166,8 +244,67 @@ public class MyDataFragment extends Fragment {
     public void saveData(View v){
         Map myMap = new Map();
         Imputer imputer = new Imputer(myMap);
-        double[] result = imputer.impute(new String[][]{{}});
 
+        String[] vars = new String[15];
+        double[] imputedVars = new double[15];
+
+        String fa = faInput.getText().toString().length()==0?"NA":faInput.getText().toString();
+        vars[13] = fa;
+        String hcy = ncyInput.getText().toString().length()==0?"NA":ncyInput.getText().toString();
+        vars[14] = hcy;
+        String bmi = bmiInput.getText().toString().length()==0?"NA":bmiInput.getText().toString();
+        vars[6] = bmi;
+        String sbp = sbpInput.getText().toString().length()==0?"NA":sbpInput.getText().toString();
+        vars[7] = sbp;
+        String dbp = dbpInput.getText().toString().length()==0?"NA":dbpInput.getText().toString();
+        vars[8] = dbp;
+        String tchp = tchoInput.getText().toString().length()==0?"NA":tchoInput.getText().toString();
+        vars[9] = tchp;
+        String dm = dmInput.getText().toString().length()==0?"NA":dmInput.getText().toString();
+        vars[10] = dm;
+
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String age = prefs.getString("Age", null);
+        vars[0] = age;
+        String sex = prefs.getString("Sex", null);
+        vars[1] = sex;
+
+        vars[2] = String.valueOf(smoke1);
+        vars[3] = String.valueOf(smoke2);
+        vars[4] = String.valueOf(alcohol1);
+        vars[5] = String.valueOf(alcohol2);
+        vars[11] = c677t1;
+        vars[12] = c677t2;
+
+        double[] result = imputer.impute(new String[][]{{
+            age, sex, String.valueOf(smoke1), String.valueOf(smoke2),
+                String.valueOf(alcohol1), String.valueOf(alcohol2),
+                bmi, sbp, dbp, tchp, dm,
+                c677t1, c677t2, fa, hcy
+        }});
+
+        List<Integer> imputedIndex = new ArrayList<>();
+
+        for(int i = 0; i < vars.length; i++){
+            if(vars[i].equals("NA")){
+                imputedIndex.add(i);
+            }
+        }
+
+        int index = (int) result[0];
+
+        for(int i = 0; i < imputedVars.length; i++){
+            if(!vars[i].equals("NA")) imputedVars[i] = Double.parseDouble(vars[i]);
+        }
+
+        for(int i: imputedIndex){
+            imputedVars[i] = myMap.getEntry(index, i);
+        }
+
+        CSPPTModel model = new CSPPTModel();
+        double risk = model.calculateRisk(imputedVars);
+        Log.d("Risk", String.valueOf(risk));
     }
 
 }

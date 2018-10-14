@@ -2,7 +2,9 @@ package somethingmonkey.hackduke;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -13,6 +15,7 @@ public class GenderPickerActivity extends Activity {
     FloatingActionButton nextButton;
     ImageView maleIcon;
     ImageView femaleIcon;
+    boolean isMaleSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +35,27 @@ public class GenderPickerActivity extends Activity {
     }
 
     public void goToBirthdayPicker(View v){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        if(isMaleSelected){
+            editor.putString("Sex", "1");
+        }
+        else{
+            editor.putString("Sex", "0");
+        }
+        editor.commit();
         Intent intent = new Intent(this, BirthdayPickerActivity.class);
         startActivity(intent);
     }
 
     public void onClickMaleIcon(View v){
+        isMaleSelected = true;
         setIcon(maleIcon, R.drawable.ic_male_select);
         setIcon(femaleIcon, R.drawable.ic_venus_solid);
     }
 
     public void onClickFemaleIcon(View v){
+        isMaleSelected = false;
         setIcon(maleIcon, R.drawable.ic_mars_solid);
         setIcon(femaleIcon, R.drawable.ic_female_select);
     }
